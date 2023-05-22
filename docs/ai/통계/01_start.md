@@ -1,6 +1,6 @@
 ---
 title: start
 layout: default
-parent: 통계
+parent: statistics
 nav_order: 1
 ---
