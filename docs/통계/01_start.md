@@ -4,3 +4,7 @@ layout: default
 parent: 통계
 nav_order: 1
 ---
+
+# TEST
+
+![](../../assets/images/bff.jpg)
