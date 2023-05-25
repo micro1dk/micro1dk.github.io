@@ -21,6 +21,11 @@ h3 {
   margin-bottom: 0.8rem !important;
 }
 
+pre {
+  font-size: 1.4em !important;
+  line-height: 1.2em !important;
+}
+
 .text-alpha {
   @include fs-8;
 }
