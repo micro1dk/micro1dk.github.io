@@ -116,6 +116,17 @@ $media-queries: (
 ) !default;
 
 h1 {
-  font-weight: 800 !important;
-  border-bottom: 1px solid #eeeeee;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+
+h2 {
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+h3 {
+  font-size: 24px !important;
+  font-weight: 700 !important;
 }
