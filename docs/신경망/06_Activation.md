@@ -51,7 +51,7 @@ sigmoid 함수의 최대 기울기는 0.25다. 역방향 계산에서 한 단계
 
 sigmoid, sigmoid 미분 구현 코드
 
-```C
+```c
 __device__ inline float sigmoid(float a) {
     return 1.0f / (1.0f + std::exp(-a));
 }
@@ -82,7 +82,7 @@ ReLU의 평균기울기는 0.5로 sigmoid의 0.25의 2배다.  따라서 기울�
 
 ReLU, ReLU 미분 구현 코드
 
-```C
+```c
 __device__ inline float relu(float a) {
     return a > 0.0f ? a : 0.0f;
 }
@@ -110,7 +110,7 @@ __device__ inline float d_relu(float a) {
 
 Tanh, Tanh 미분 구현 코드
 
-```C
+```c
 __device__ inline float tanh_(float a) {
     return std::tanh(a);
 }
@@ -158,7 +158,7 @@ softmax는 손실함수의 직전에 사용된다. 입력은 (batch_size, out_si
 
 
 
-```C
+```c
 __device__ inline void MyAtomicMax(float* address, float value) {
     int ret = __float_as_int(*address);
     while (value > __int_as_float(ret)) {
@@ -270,7 +270,7 @@ Softmax를 통과하면 Cross Entropy 식을 통과하여 Cost를 구하게된�
 
 Cross Entropy 식에는 `log(x)`가 사용된다.  x가 0에 가까우면 log(x)는 음의 무한대로 발산한다. 따라서 softmax 출력 값을 제한해주는 작업이 필요하다.
 
-```C
+```c
 Matrix softmax_pred = pred.Softmax();
 softmax_pred.Clip(1e-7, 1 - 1e-7);
 ```

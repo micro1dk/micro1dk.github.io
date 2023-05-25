@@ -35,7 +35,7 @@ Linear Layer로도 불리는 전결합층은 딥러닝 모델에서 가장 기�
 
 Linear Layer 인스턴스를 생성했을 때 파라미터를 초기화한다. 행렬의 크기는 엔비디아에서 제공하는 페이지를 참고하여 만들었다.
 
-```C
+```c
 Linear::Linear(int input_size, int output_size, WeightInit weight_init) {
     this->W = Matrix(input_size, output_size);
     this->b = Matrix(output_size, 1);
@@ -84,7 +84,7 @@ SetRanomNormalizeData(평균, 표준편차)
 
 # 순전파 역전파 구현
 
-```C
+```c
 Matrix OperationLinear::_Output() {
     Matrix X = inputs.at(0);
     return W.Transpose().Dot(X) + b;  // 그림 (a)

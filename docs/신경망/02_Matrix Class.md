@@ -49,7 +49,7 @@ Matrix의 생성자에는 행렬의 크기를 인자로 받고 그 크기만큼 
 
 Matrix의 소멸자에는 CPU와 GPU에 할당된 메모리를 해제한다.
 
-```C
+```c
 Matrix::Matrix(int nrow, int ncol): nrow(nrow), ncol(ncol)
 {
     // 생성자
