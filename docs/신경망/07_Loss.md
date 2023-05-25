@@ -1,3 +1,10 @@
+---
+title: Loss
+layout: default
+parent: 신경망
+nav_order: 7
+---
+
 # Loss
 
 신경망의 예측 결과와 실제값을 비교하여 예측의 오차 혹은 손실을 계산한다. 이 손실 값은 신경망이 얼마나 잘 학습하고 있는지를 측정하는 지표로 사용되며 학습 과정에서 이 손실 값을 최소화하는 방향으로 가중치를 업데이트 한다.
@@ -20,7 +27,7 @@
 
 
 
-![](./images/loss_mse.png)
+![](../../assets/images/dnn/loss_mse.png)
 
 
 
@@ -44,7 +51,7 @@ __device__ inline float d_mse(float a, float b, float n) {
 
 다중클래스분류 문제에서 사용. ex) 동물 맞추기, 쓰레기 분별
 
-![](./images/loss_cce.png)
+![](../../assets/images/dnn/loss_cce.png)
 
 
 
@@ -56,7 +63,7 @@ Categorical Cross-Entropy 는 각 클래스에 대한 확률 예측을 출력하
 
 ### 기울기 유도
 
-![](./images/loss_cce_2.png)
+![](../../assets/images/dnn/loss_cce_2.png)
 
 
 
@@ -112,7 +119,7 @@ Matrix CategoricalCrossEntropy::_Grad(Matrix& pred, Matrix& target) {
 
 이진 분류 문제에서 사용. 예측해야 하는 클래스가 두 개인경우 ex) 스팸 이메일 탐지, 감성분석
 
-![](./images/loss_bi_0.png)
+![](../../assets/images/dnn/loss_bi_0.png)
 
 
 
@@ -122,7 +129,7 @@ Matrix CategoricalCrossEntropy::_Grad(Matrix& pred, Matrix& target) {
 
 ### 기울기 유도
 
-![](./images/loss_bi_2.png)
+![](../../assets/images/dnn/loss_bi_2.png)
 
 
 

@@ -4,7 +4,7 @@
 
 
 
-![](./images/cnn_fist.PNG)
+![](../../assets/images/dnn/cnn_fist.PNG)
 
 
 
@@ -79,7 +79,7 @@ for문이 6겹과 7겹으로 되어있기 때문에 속도가 매우느리다. �
 
 
 
-![](./images/im2col.png)
+![](../../assets/images/dnn/im2col.png)
 
 N: batch, C: channels, H: Height, W: width, 
 
@@ -120,7 +120,7 @@ Cuda로 구현한 코드는 아래 git 링크에서확인할 수 있다.
 
 ### Forward
 
-![](./images/im2col_layer.png)
+![](../../assets/images/dnn/im2col_layer.png)
 
 
 
@@ -132,7 +132,7 @@ Im2Col은 입력 이미지를 필터의 크기에 맞게 재구성하여 2차원
 
 
 
-![](./images/col2im_layer.png)
+![](../../assets/images/dnn/col2im_layer.png)
 
 
 

@@ -1,3 +1,10 @@
+---
+title: Matrix class
+layout: default
+parent: 신경망
+nav_order: 2
+---
+
 # Matrix class
 
 Matrix 클래스를 구성할 때 고려해야할 요소들이 있다.

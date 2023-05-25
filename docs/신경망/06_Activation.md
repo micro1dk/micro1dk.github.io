@@ -1,3 +1,10 @@
+---
+title: Activation
+layout: default
+parent: 신경망
+nav_order: 6
+---
+
 # Activation
 
 **활성화 함수(Activation function)**는 비선형성을 도입하여 신경망이 비선형 문제를 학습할 수 있게 한다.
@@ -32,7 +39,7 @@
 
 Sigmoid함수에도 단점은 있다. 기울기가 `hyperbolic Tangent` 에 비해서 상대적으로 평탄하기 때문에 역방향 계산에서 불리하다. 
 
-![](./images/act_sig.png)
+![](../../assets/images/dnn/act_sig.png)
 
 sigmoid 함수의 최대 기울기는 0.25다. 역방향 계산에서 한 단계를 통과할 때마다 기울기값이 아무리 커도 1/4로 줄어들 수 밖에없다. 또한 sigmoid 함수의 입력 x값이 -2보다 작거나 2보다 크면 기울기는 0에 수렴한다.
 
@@ -63,7 +70,7 @@ __device__ inline float d_sigmoid(float a) {
 
 ReLU는 sigmoid와 장점과 단점이 정반대이다. ReLU의 함수값은 입력x가 0보다 작으면 0, 그렇지 않으면 x가 된다.
 
-![](./images/act_relu.png)
+![](../../assets/images/dnn/act_relu.png)
 
 ReLU 함수도 선형함수처럼 생각할 수 있지만 선형함수는 `f(x) = ax + b`와 같은 형태를 가진다. ReLU는 0을 경계로 식이 달라지기 때문에 비선형함수다. ReLU는 0을 경계로 기울기가 갑자기 변하는 형태를 가진다. 이는 선형함수와는 다른 형태를 가진다. 
 
@@ -93,7 +100,7 @@ __device__ inline float d_relu(float a) {
 
 **Hyperbolic Tangent** 줄여서 **Tanh**함수는 Sigmoid와 ReLU의 중간에 위치한다고 보면된다.
 
-![](./images/act_tanh.png)
+![](../../assets/images/dnn/act_tanh.png)
 
 일단 기울기는 sigmoid의 기울기보다 훨씬 가파르다. 최대 기울기값은 1이다.
 
@@ -125,7 +132,7 @@ __device__ inline float d_tanh(float a) {
 
 
 
-![](./images/act_soft.png)
+![](../../assets/images/dnn/act_soft.png)
 
 
 

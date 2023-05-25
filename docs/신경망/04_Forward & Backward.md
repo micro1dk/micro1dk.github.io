@@ -1,4 +1,11 @@
-### 다층 퍼셉트론
+---
+title: Perceptron
+layout: default
+parent: 신경망
+nav_order: 4
+---
+
+# 퍼셉트론
 
 Multi-layer Perceptron은 인공신경망의 한 종류로, 여러개의 은닉층을 포함하는 신경망 구조다. 은닉층은 입력층과 출력층 사이에 존재하며, 입력 데이터에대한 비선형 변환을 수행한다.
 
@@ -14,7 +21,7 @@ Multi-layer Perceptron은 인공신경망의 한 종류로, 여러개의 은닉�
 
 Linear layer 모델의 순전파
 
-![](./images/04_forward.PNG)
+![](../../assets/images/dnn/04_forward.PNG)
 
 
 
@@ -26,7 +33,7 @@ Linear layer 모델의 순전파
 
 기본적인 역전파의 계산패턴을 시각적으로 나타내었다.
 
-![](./images/visual_grad.PNG)
+![](../../assets/images/dnn/visual_grad.PNG)
 
 
 
@@ -34,7 +41,7 @@ Linear layer 모델의 순전파
 
 Linear layer 모델의 역전파
 
-![](./images/04_backward.PNG)
+![](../../assets/images/dnn/04_backward.PNG)
 
 
 
