@@ -114,3 +114,8 @@ $media-queries: (
   lg: $content-width + $nav-width,
   xl: 1400px,
 ) !default;
+
+h1 {
+  font-weight: 800 !important;
+  border-bottom: 1px solid #eeeeee;
+}
