@@ -16,6 +16,8 @@ nav_order: 6
 
 
 
+
+
 ### 비선형화를 하는이유
 
 왜 비선형 함수여야할까? x^2의 square함수를 사용하면 안될까? 이 함수를 사용하게되면 두 선형회귀 모형이 각각 -2와 2를 출력했다고 했을 때, square에 입력하면 두 값 모두 4가된다. 따라서 애초에 두 값이 -2, 2는 서로 달랐다는 정보가 소실된다.
@@ -23,6 +25,10 @@ nav_order: 6
 또한 역전파 알고리즘을 사용하여 가중치를 업데이트하게 되는데, 선형 함수를 사용하면 기울기가 상수 값으로 유지된다. 신경망이 깊어질 수록 기울기 소실문제를 겪게된다. 비선형함수를 사용하면 역전파 과정에서 기울기가 적절하게 전파된다.
 
 선형 함수는 입력과 가중치의 선형결합으로 이루어지므로 표현력이 한정적이다. 비선형 함수를 추가하면 신경망은 더 다양한 형태로 학습할 수 있다.
+
+
+
+
 
 
 
@@ -66,6 +72,8 @@ __device__ inline float d_sigmoid(float a) {
 
 
 
+
+
 ### ReLU
 
 ReLU는 sigmoid와 장점과 단점이 정반대이다. ReLU의 함수값은 입력x가 0보다 작으면 0, 그렇지 않으면 x가 된다.
@@ -96,6 +104,8 @@ __device__ inline float d_relu(float a) {
 
 
 
+
+
 ### Tanh
 
 **Hyperbolic Tangent** 줄여서 **Tanh**함수는 Sigmoid와 ReLU의 중간에 위치한다고 보면된다.
@@ -119,6 +129,8 @@ __device__ inline float d_tanh(float a) {
     return 1.0f - std::tanh(a) * std::tanh(a);
 }
 ```
+
+
 
 
 
@@ -261,19 +273,4 @@ void exec_kernel_Softmax(
 }
 
 ```
-
-
-
-### Clip 작업
-
-Softmax를 통과하면 Cross Entropy 식을 통과하여 Cost를 구하게된다. 
-
-Cross Entropy 식에는 `log(x)`가 사용된다.  x가 0에 가까우면 log(x)는 음의 무한대로 발산한다. 따라서 softmax 출력 값을 제한해주는 작업이 필요하다.
-
-```c
-Matrix softmax_pred = pred.Softmax();
-softmax_pred.Clip(1e-7, 1 - 1e-7);
-```
-
-
 

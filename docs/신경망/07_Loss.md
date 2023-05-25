@@ -21,6 +21,12 @@ nav_order: 7
 
 
 
+
+
+
+
+
+
 ## Mean Squared Error (MSE)
 
 평균 제곱 오차는 회귀문제에서 많이 사용한다. MSE는 예측값과 실제값 차이를 제곱한 값들의 평균을 계산한다. 제곱을 하기때문에 큰 오차를 심각하게 받아들이며 큰 오차에 대해 더 큰 패널티를 부과한다.
@@ -44,6 +50,12 @@ __device__ inline float d_mse(float a, float b, float n) {
 ```
 
 * n은 batch_size
+
+
+
+
+
+
 
 
 
@@ -110,6 +122,12 @@ Matrix CategoricalCrossEntropy::_Grad(Matrix& pred, Matrix& target) {
 * Loss 클래스에는 Softmax연산이 포함되어 있다.
 * Softmax 함수를 통과한 후 categorical연산에서 Clipping 작업을 진행한다. 
 * Categorical Cross Entropy 연산의 `std::log(t)` 부분에서  log의 입력이 0에 가까우면 음의 무한대로 발산한다.  따라서 너무작은 값을 1e-7로 잘라줘야한다.
+
+
+
+
+
+
 
 
 
