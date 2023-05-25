@@ -1,20 +1,30 @@
 // Typography
 // stylelint-disable selector-no-type, selector-max-type, selector-max-specificity, selector-max-id
-
-h1,
-.text-alpha {
-  @include fs-8;
-
-  font-weight: 300;
+h1 {
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dcdcdc;
 }
 
-h2,
+h2 {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+h3 {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+.text-alpha {
+  @include fs-8;
+}
+
 .text-beta,
 #toctitle {
   @include fs-6;
 }
 
-h3,
 .text-gamma {
   @include fs-5;
 }
