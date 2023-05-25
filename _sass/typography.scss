@@ -1,15 +1,15 @@
 // Typography
 // stylelint-disable selector-no-type, selector-max-type, selector-max-specificity, selector-max-id
 
-h1, .text-alpha {
+h1,
+.text-alpha {
   @include fs-8;
 
-  font-weight: 800;
-  border-bottom: 1px solid #eeeeee;
-
+  font-weight: 300;
 }
 
-h2,.text-beta,
+h2,
+.text-beta,
 #toctitle {
   @include fs-6;
 }
