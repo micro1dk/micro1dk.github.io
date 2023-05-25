@@ -5,7 +5,9 @@ h1,
 .text-alpha {
   @include fs-8;
 
-  font-weight: 300;
+  font-weight: 800;
+  border-bottom: 1px solid #eeeeee;
+
 }
 
 h2,
