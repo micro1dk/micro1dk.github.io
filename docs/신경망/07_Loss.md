@@ -33,7 +33,7 @@ nav_order: 7
 
 Back Propagation의 시작은 입력에 대한 오차의 기울기부터 시작한다.
 
-```C++
+```c
 __device__ inline float mse(float a, float b, float n) {
     return powf(a - b, 2) * 0.5 / n; 
 }
@@ -81,7 +81,7 @@ Categorical Cross-Entropy 는 각 클래스에 대한 확률 예측을 출력하
 
 함수의 자세한 코드는 깃 참고
 
-```C++
+```C
 __device__ inline float categoricalCrossEntropy(float a, float b) {
     float t = b;
     if (b < 1e-7) t = 1e-7; // Clipping - lower bound
@@ -93,7 +93,7 @@ __device__ inline float d_categoricalCrossEntropy(float a, float b, float n) {
 }
 ```
 
-```C++
+```C
 // Layer - loss
 float CategoricalCrossEntropy::_Output(Matrix& pred, Matrix& target) {
     softmax_pred = pred.Softmax();
@@ -139,7 +139,7 @@ Binary Cross Entropy의 기울기는 정답과 예측의 차이로 쉽게 구할
 
 자세한 코드는 깃허브 참고!.
 
-```C++
+```C
 __device__ inline float binaryCrossEntropy(float a, float b) {
     float t = b;
     if (b < 1e-7) t = 1e-7; // clip - lower bound
@@ -152,7 +152,7 @@ __device__ inline float d_binaryCrossEntropy(float a, float b, float n) {
 }
 ```
 
-```C++
+```C
 float BinaryCrossEntropy::_Output(Matrix& pred, Matrix& target) {
     sigmoid_pred = pred.Sigmoid();
     Matrix softmax_cross_entropy = sigmoid_pred.BinaryCrossEntropy(target);
