@@ -35,7 +35,7 @@ Multi-layer Perceptron은 인공신경망의 한 종류로, 여러개의 은닉�
 
 Linear layer 모델의 순전파
 
-![](../../assets/images/dnn/04_forward.PNG)
+![](../../assets/images/dnn/04_forward.png)
 
 
 
@@ -49,7 +49,7 @@ Linear layer 모델의 순전파
 
 기본적인 역전파의 계산패턴을 시각적으로 나타내었다.
 
-![](../../assets/images/dnn/visual_grad.PNG)
+![](../../assets/images/dnn/visual_grad.png)
 
 
 
@@ -61,7 +61,7 @@ Linear layer 모델의 순전파
 
 Linear layer 모델의 역전파
 
-![](../../assets/images/dnn/04_backward.PNG)
+![](../../assets/images/dnn/04_backward.png)
 
 
 

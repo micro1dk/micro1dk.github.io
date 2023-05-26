@@ -10,7 +10,7 @@ CUDA 병렬프로그래밍에서 접하는 개념이다. GPU에서 연속적으�
 
 
 
-![](../../assets/images/cuda/coalescing_info.PNG)
+![](../../assets/images/cuda/coalescing_info.png)
 
 
 
@@ -20,7 +20,7 @@ CUDA 병렬프로그래밍에서 접하는 개념이다. GPU에서 연속적으�
 
 우) 메모리 코알레싱 달성 실패
 
-![](../../assets/images/cuda/coalescing_compare.PNG)
+![](../../assets/images/cuda/coalescing_compare.png)
 
 메모리 코알레싱을 달성하여 40%가 빨라진것을 확인했다. 
 
@@ -28,7 +28,7 @@ CUDA 병렬프로그래밍에서 접하는 개념이다. GPU에서 연속적으�
 
 ### 코드비교
 
-![](../../assets/images/cuda/coalescing_code.PNG)
+![](../../assets/images/cuda/coalescing_code.png)
 
 문제는 빨간네모박스 부분에서 발생한다.
 

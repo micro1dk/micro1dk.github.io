@@ -85,7 +85,7 @@ __shared__ float shared_mat[TILE_WIDTH][TILE_WIDTH];
 
 다음은 두 행렬의 덧셈 연산을 공유메모리를 활용한 그림이다.
 
-![](../../assets/images/cuda/shared_element.PNG)
+![](../../assets/images/cuda/shared_element.png)
 
 
 

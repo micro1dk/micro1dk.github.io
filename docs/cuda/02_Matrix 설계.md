@@ -23,7 +23,7 @@ CUDA에서는 메모리를 할당하는 방법에는 주로 2가지가 있다.
 
 아래는 크기 (2000 , 1000)의 행렬을 메모리에 저장하는 방식을 그림으로 나타내었다.
 
-![](../../assets/images/cuda/CUDA_메모리비교.PNG)
+![](../../assets/images/cuda/CUDA_메모리비교.png)
 
 pitch방식은 boundary 에 맞춰 메모리를 정렬한다.  pitch는 Column의 크기에따라 설정된다. pitch 값은 각 행의 바이트수를 저장한다. 각 행의 바이트 수는 일반적으로 4또는 8의 배수로 맞추어진다. 사용자의 하드웨어에 따라 다르며 본인의 사양에서는 512바이트의 단위로 맞추어진다.
 
@@ -31,7 +31,7 @@ pitch방식은 boundary 에 맞춰 메모리를 정렬한다.  pitch는 Column�
 
 pitch를 사용하면 메모리의 낭비가 발생한다. 아래그림처럼
 
-![](../../assets/images/cuda/cuda_pitch1.PNG)
+![](../../assets/images/cuda/cuda_pitch1.png)
 
 그래도 pitch를 사용하는 이유는
 
@@ -42,7 +42,7 @@ pitch를 사용하면 메모리의 낭비가 발생한다. 아래그림처럼
 
 그렇다고 무조건 pitch를 사용하는 것은 좋은 방법이 아니다. 예를들어 크기 (1000, 2)은 아래와 같이 메모리를 정렬하기때문에 메모리낭비가 크다. 
 
-![](../../assets/images/cuda/cuda_pitch2.PNG)
+![](../../assets/images/cuda/cuda_pitch2.png)
 
 
 
@@ -54,7 +54,7 @@ pitch를 사용하면 메모리의 낭비가 발생한다. 아래그림처럼
 
 A(1024, 1024) B(1024, 1024) Dot Product 연산 결과   좌) cudaMalloc, 우) cudaMallocPitch
 
-![](../../assets/images/cuda/cuda_speed_1.PNG)
+![](../../assets/images/cuda/cuda_speed_1.png)
 
 이론은 pitch를 사용하는 것이 빠른데 본인 사양에서는 큰 차이가 없다. 그렇다면 더 큰 행렬에서는 어떨까?
 
@@ -62,7 +62,7 @@ A(1024, 1024) B(1024, 1024) Dot Product 연산 결과   좌) cudaMalloc, 우) cu
 
 A(3000, 10000) B(10000, 3000) Dot Product 연산 결과   좌) cudaMalloc, 우) cudaMallocPitch
 
-![](../../assets/images/cuda/cuda_speed_2.PNG)
+![](../../assets/images/cuda/cuda_speed_2.png)
 
 크기가 큰 행렬에서는 pitch할당방식이 3%정도 빨랐다.
 
@@ -80,7 +80,7 @@ A(3000, 10000) B(10000, 3000) Dot Product 연산 결과   좌) cudaMalloc, 우) 
 
 ## Row & Column major
 
-![](../../assets/images/cuda/row-col.PNG)
+![](../../assets/images/cuda/row-col.png)
 
 2차원 데이터를 CPU 메모리에 저장하는 방식은 두 가지 방식이 있다.
 

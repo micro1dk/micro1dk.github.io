@@ -17,7 +17,7 @@ matA += matB
 
 
 
-![](../../assets/images/cuda/element_wise.PNG)
+![](../../assets/images/cuda/element_wise.png)
 
 
 

@@ -4,7 +4,7 @@
 
 
 
-![](../../assets/images/dnn/cnn_fist.PNG)
+![](../../assets/images/dnn/cnn_fist.png)
 
 
 
