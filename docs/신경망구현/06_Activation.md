@@ -166,7 +166,7 @@ softmax는 손실함수의 직전에 사용된다. 입력은 (batch_size, out_si
 
 * **max값 구하기** - 각 batch 별로 max값을 구해야한다. max[batch_size] 만큼 배열 생성
 * **지수함수 적용** - 각 batch 별 분수를 구해야한다. 행 별로 요소들의 합을 구한다.
-* **softmax 계산 ** - 수식대로 나눗셈을 적용한다.
+* **softmax 계산** - 수식대로 나눗셈을 적용한다.
 
 
 
@@ -182,13 +182,8 @@ __device__ inline void MyAtomicMax(float* address, float value) {
 }
 
 __device__ inline float softmax(float a, float sum) {
-    // if (sum < 1e-7) return a / 1e7;
     return a / (sum + 1e-7);
 }
-
-// x가 0에 가까우면 log(x)는 음의 무한대.
-// x가 1에 가까우면 log(1 - x)는 양의 무한대.
-// x의값을 10**-7 이상 10**7 이하로 조정해야함.
 
 __global__ void kernel_Softmax(
     float* Dst, const float* sum,
