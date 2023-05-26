@@ -1,7 +1,7 @@
 ---
 title: Activation
 layout: default
-parent: 신경망
+parent: 신경망 구현
 nav_order: 6
 ---
 
