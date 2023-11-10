@@ -9,8 +9,11 @@ nav_order: 6
 
 **활성화 함수(Activation function)**는 비선형성을 도입하여 신경망이 비선형 문제를 학습할 수 있게 한다.
 
+아래는 대표적으로 사용하는 활성화 함수
+
 * Sigmoid
 * ReLU
+  * 파생형으로 SiLU, PReLU, Leaky ReLU, ELU 등이 있음
 * Tanh
 * Softmax
 

@@ -1,3 +1,10 @@
+---
+title: Covolution layer
+layout: default
+parent: 신경망 구현
+nav_order: 11
+---
+
 # Convolution Layer
 
 **합성곱 계층(Convolution Layer)**은 입력 데이터에 대해 필터(커널)를 적용하여 특징 맵을 생성한다. Convolution Layer는 이미지 처리를 비롯해 다양한 컴퓨터 비전 작업에 사용된다.

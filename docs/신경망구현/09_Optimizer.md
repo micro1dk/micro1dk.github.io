@@ -1,140 +1,187 @@
-# Convolution Layer
+---
+title: Optimizer
+layout: default
+parent: 신경망 구현
+nav_order: 9
+---
 
-**합성곱 계층(Convolution Layer)**은 입력 데이터에 대해 필터(커널)를 적용하여 특징 맵을 생성한다. Convolution Layer는 이미지 처리를 비롯해 다양한 컴퓨터 비전 작업에 사용된다.
+# Optimizer
 
+![](../../assets/images/dnn/opt_overview.png)
 
+모델의 학습과정을 조절하는 알고리즘을 의미한다. 학습의 목표는 모델의 예측오차를 최소화하는 것인데, Optimizer는 오차 값이 최소가 되는 모델 파라미터를 찾는 방법이다. 
 
-![](../../assets/images/dnn/cnn_fist.png)
 
 
+## 경사하강법
 
-## Padding
+경사 하강법은 모델의 오차 함수를 최소화하기 위한 매개변수를 반복적으로 조정한다. 경사하강법에는 크게 3가지 유형으로 나뉜다.
 
-합성곱 연산의 결과가 입력보다 크기가 작아지는 문제를 피하려면, 출력의 크기와 입력의 크기와 일치시키도록 데이터 주변에 추가적인 값들을 채우는 과정을 말한다. 
+* **배치 경사 하강법** (BGD)
+  * **전체 학습데이터**를 사용한다.
+  * 전체 데이터에 대한 모델의 오차의 평균을 구한 다음, 미분을 통해 기울기를 산출하고 최적화를한다.
+  * 전체 데이터를 통해 학습하기에 업데이트 수가 적다. 1 Epoch 당 1회의 업데이트
+  * 전체 데이터를 한 번에 처리하기 때문에 **메모리 비용이 크다**.
+  * 항상 같은 데이터를 사용하기에 손실의 안정적인 수렴을 보여준다.
+* **확률적 경사하강법** (SGD)
+  * **하나의 샘플 데이터**를 사용한다. (랜덤선택)
+  * 한 데이터에 대한 오차와 기울기를 산출한다.
+  * 한 데이터만 이용하므로 GPU 병렬처리를 효과적이지 않다.
+  * 지역최솟값에 수렴하기 쉽다.
+* **미니배치 경사하강법**
 
 
 
-## Pooling
+### 미니배치 경사하강법
 
-풀링은 공간적인 크기를 줄이는 연산이다. 주로 최대풀링(Max Pooling)과 평균 풀링(Average Pooling)이 사용된다.
+배치경사하강법과 확률적경사 하강법 두 방법 모두 장단점이있다. 
 
-풀링의 이점은 계산량 감소에 있다. 이미지를 다운샘플링해서 픽셀 데이터수를 줄여 계산량을 줄인다.
+실제로는 두 방법의 절충안인 **미니 배치 경사 하강법**을 사용한다.
 
-신경망에 여러개의 풀링층이 배치된다면 계산이득도 중첩된다. 하지만 이미지에서 줄어든 픽셀 수 만큼 정보도 손실된다.
+* 적은 수의 샘플 (예 32, 64, 128, 256 등)을 사용하여 오차의 평균을 구하고 기울기를 계산한다.
+* GPU 병렬처리의 효과를 볼 수 있다.
+* 빠르면서도 안정적이다.
 
-최근에는풀링사용은 최소한으로 줄이거나 아예 사용하지 말라고 한다.
 
 
+## 알고리즘 & Anisotropy
 
-## Stride
+SGD에서 파생되어서 대표적으로 아래 알고리즘이 사용된다.
 
-풀링은 특징맵은 다운샘플링하여 계산량을 줄이지만, 데이터 손실때문에 잘 사용하지 않는다. 그것의 대책으로 Stride를 조절하는 방법이 있다.
+* Momentum
+* Adagrad
+* RMSprop
+* Adam
 
-Stride는 보폭이라는 의미로 생각하면된다. 필터를 적용할 때 이동하는 간격을 의미한다. Stride 값은 필터를 입력 데이터에 적용하는 단계마다 몇 칸씩  이동할지를 결정한다.
 
 
+비등방성(Anisotropy)이란 방향에 따라서 물리적 성질이 바뀌는 것을 의미한다. 각 위치에서의 기울기가 가리키는 지점이 하나가 아닌 여러개다. 비등방성 함수를 통해 서로 다른 매개변수 축을 따라 기울기의 최적화 문제를 시뮬레이션 해보자.
 
+시작 좌표 (-7, 4) 에서 출발하여 (0, 0)에 도달하는 과정을 그래프로 나타낼 것이다.
 
+최적화 알고리즘이 특정 방향으로 빠르게 진행하고, 다른 방향으로는 느리게 진행하는 경향이 보일것이다. 
 
-## 합성곱 연산
 
-합성곱 층에서 다루는 데이터는 전결합층 데이터와는 다르게 4차원 데이터이다. (Batch, Channel, Height, Width)순으로 입력이 주어진다. 거기에 (in_channel, out_channel, filter_width, filter_height)의 필터를 거쳐야하는 연산이 필요하다.
 
-아래는 다채널 2차원 합성곱의 연산과정이다.  
 
-```python
-# forward
-for c_in in range(in_channels):
-    for c_out in range(out_channels):
-        for o_w in range(img_size):
-            for o_h in range(img_size):
-                for p_w in range(param_size):
-                    for p_h in range(param_size):
-                        out[c_out][o_w][o_h] += \
-                            param[c_in][c_out][p_w][p_h]
-                                * pad[c_in][o_w + p_w][o_h + p_h]
-                                
-# get grad
-for i in range(inp.shape[0]):
-    for c_in in range(in_channels):
-        for c_out in range(out_channels):
-            for o_w in range(img_size):
-                for o_h in range(img_size):
-                    for p_w in range(param_size):
-                        for p_h in range(param_size):
-                            param_grad[c_in][c_out][p_w][p_h] += \
-                            	inp_pad[i][c_in][o_w + p+w][o_h + p_h] *
-                                output_grad[i][c_out][o_w][o_h]
-```
 
-for문이 6겹과 7겹으로 되어있기 때문에 속도가 매우느리다. 합성곱의 신경망의 이해를하기 위해 연산을 구현했지만 더 나은 방법이 존재한다.
+## SGD
 
+![](../../assets/images/dnn/opt_s_1.png)
 
+확률적 경사 하강법(Stochastic Gradient Descent)은 가장 기본적인 최적화 방법이다. 
 
-## Im2Col & Col2Im
+SGD의 특징은
 
-### Im2Col
+* 구현이 간단하고 계산비용이 적다.
 
-**Im2Col (Image to Column)**은 입력 데이터를 필터의 크기와 padding/stride에 맞게 행렬을 2차원으로 재구성하는 과정이다. 이렇게 변환된 행렬과 가중치를 연산하면 합성곱 연산을 훨씬 효율적으로 수행할 수 있다.
 
 
 
-![](../../assets/images/dnn/im2col.png)
 
-N: batch, C: channels, H: Height, W: width, 
+### Anisotropy에서 최솟값을 찾아가는 과정
 
-P: Output_Height, Q: Output_Width, 
+![](../../assets/images/dnn/opt_sgd.png)
 
-R: Filter_Height, S: Filter_Width
+최적화 과정에서 많이 진동한다. 진동이 심하면 최솟값을 찾아가는 과정은 Z모양이 되고 **수렴속도가 늦다.** 따라서 비등방성 함수에서는 탐색경로가 상당히 비효율적이다.
 
-(N, C, H, W), (R, S) => (N * P * Q, C * R * S)
 
 
 
-```python
-channels = 3
-height = 5
-width = 7
 
-stride = 1
-padding = 1
-filter_size = 3
-```
+## SGD Momentum
 
-입력데이터가 (channels, height, width) = (3, 5, 7) 크기의 데이터로 주어진다.
+SGD Momentum은 전통적인 SGD에서 모멘텀 요소를 추가하였다. 
 
-```python
-height_col = (height + 2 * padding - filter_size) // stride + 1
-width_col = (width + 2 * padding - filter_size) // stride + 1
-```
+![](../../assets/images/dnn/opt_s_2.png)
 
-결과의 크기는 (height_col * width_col, filter_size * filter_size * channels) = (35, 27)로 주어질것이다.
+이전 기울기 방향을 유지하면서 최솟값을 찾아나간다. 물리학에서 관성개념과 유사하게, 움직임의 관성을 이용한다.
 
+모멘텀 효과로인해 지역최솟값에서 쉽게 벗어날 수 있다. SGD가 가지고 있는 문제를 완화시켜준다. (그렇다고 해서 무조건 Global optimum을 찾는 것은 아님)
 
+![](../../assets/images/dnn/opt_sgd2.png)
 
-Cuda로 구현한 코드는 아래 git 링크에서확인할 수 있다.
 
-(git link)
 
 
 
-### Forward
+### Anisotropy
 
-![](../../assets/images/dnn/im2col_layer.png)
+![](../../assets/images/dnn/opt_sgdm.png)
 
+SGD에 비해 수렴속도가 빨라졌다. 여전히 안정적이지는 않다.
 
 
 
 
-### Col2Im
 
-Im2Col은 입력 이미지를 필터의 크기에 맞게 재구성하여 2차원 행렬로 변환하는 과정이라면 그 반대가 Col2Im이다. 역전파과정에서 2차원 기울기행렬을 이미지데이터 형태로 변환할때 사용한다.
+### Adagrad
 
+학습률 (Learning rate)를 맞춤형으로 조절한다. 큰 기울기를 가지는 파라미터는 학습률을 줄이고, 작은 기울기를 가지는 파라미터에 대해서는 학습률을 늘린다.
 
+![](../../assets/images/dnn/opt_s_3.png)
 
-![](../../assets/images/dnn/col2im_layer.png)
+기울기의 누적 제곱 합을 사용하여 학습률을 조정하게 된다. 그 결과 맞춤형 조절방식이 되었다.
 
+하지만 학습이 진행될 수록 학습률이 **지속적으로 감소한다.** 따라서 학습횟수가 많은 경우에는 학습률이 상당히 작아져 학습이 이루어지지 않는다는 단점이 존재한다. 이를 해결하기 위해 RMSprop의 알고리즘이 제안되었다.
 
 
-## 실습
 
+### Anisotropy
+
+![](../../assets/images/dnn/opt_adagrad.png)
+
+적응형으로 학습률을 조정하다 보니 손실공간에서 최솟값에 빠르게 도달하는것을 확인할 수 있다. 
+
+또한 누적 기울기 제곱 합을 사용하기 때문에, 기울기가 커질 수록 학습률이 빠르게 감소하므로, 비등방성 손실함수 공간에서 빠르게 낮은 지역으로 이동할 수 있다.
+
+
+
+
+
+## RMSprop
+
+Adagrad의 단점을 개선하기 위해 제안된 알고리즘이다. Adagrad의 경우 모든 과거의 기울기를 동등하게 고려하는데 반해, RMSprop은 최근에 반영된 기울기만을 더 많이 고려한다. 쉽게말해 과거의 기울기는 서서히 잊고 최근의 기울기는 많이 반영하겠다는말이다.
+
+가중치를 업데이트하는 수식의 형태는 Adagrad와 동일하다.
+
+![](../../assets/images/dnn/opt_s_4.png)
+
+
+
+### Anisotropy
+
+Adagrad와 형태가 동일하다.
+
+
+
+
+
+## Adam
+
+앞의 RMSprop과 Momentum을 결합하여 만들어졌다. 적응형 학습률 조정과 모멘텀을 이용하여 경사 하강법의 방향과 크기를 모두 맞춤형으로 조정한다. 이 때문에 Adam이 널리사용된다고한다.
+
+![](../../assets/images/dnn/opt_s_5.png)
+
+Adam이 만능은 아니다. 컴퓨터 비전에서는 오히려 SGD보다도 떨어진다는 연구도 있었다. Adam의 파생형으로 RAdam, AdamW 등 여러가지 등장한다.
+
+
+
+
+
+### Anisotropy
+
+![](../../assets/images/dnn/opt_adam.png)
+
+Momentum이 생겼기 때문에 RMSprop과 비교하면 곡률이 있음.
+
+RMSprop과 Momentum을 동시에 적용했기 때문에
+
+* 기울기가 큰 방향으로 학습률을 조정하고 이를 통해 가중치 업데이트의 변동을 줄인다.
+* Momentum 기법을 이용하여 이전 기울기 방향을 유지하며, 올바른 방향으로 가중치를 업뎃한다.
+
+
+
+## 결과
+
+알고리즘 선택에는 정답이 없다. 해당 모델에 여러 알고리즘을 적용해보고 하이퍼파라미터도 조정해보는 등 노력이 필요하다.
